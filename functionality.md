@@ -19,6 +19,7 @@ The client application is launched on each racer's computer to participate in th
    - Prompts user for server code via popup
    - Prompts user for mode: Spectate or Racer
    - Establishes connection with tournament server
+   - The client does not have to set the map
 
 3. **Status Monitoring**
    - Sends ready status to server every second
@@ -72,9 +73,9 @@ The server application manages the entire tournament, providing a comprehensive 
   - Broadcast announcements
   
 - **Race Configuration**
-  - Set race start date and time
-  - Enable start date transmission to clients
-  - **Start Race** button to initiate competition
+  - Set number of laps (default 1)
+  - Set time to start after the button start race is pressed (default 1 minute)
+  - **Start Race** button to initiate competition, this button sends the actual time plus 1 min to all clients, and clients enable a countdown to start
 
 #### **Stage 2: Active Race** 🏃‍♂️
 - **Access**: Available even before race starts
