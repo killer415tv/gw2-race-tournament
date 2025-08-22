@@ -17,6 +17,7 @@ The client application is launched on each racer's computer to participate in th
 
 2. **Server Connection**
    - Prompts user for server code via popup
+   - Prompts user for mode: Spectate or Racer
    - Establishes connection with tournament server
 
 3. **Status Monitoring**
@@ -34,7 +35,9 @@ The client application is launched on each racer's computer to participate in th
 | `ranking` | `ranking "json"` | Receives current race ranking |
 
 #### **Outgoing Commands (to Server)**
+
 - **Position Updates**: Sent every 100ms
+  - Only for Racers, spectators does not send any position, only receive msg start and ranking messages
   - Format: `pos x,y,z,speed,utc_timestamp`
   - Contains: 3D coordinates, speed, and internal UTC timer
 
