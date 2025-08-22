@@ -54,6 +54,9 @@ Runs on each racer's PC to:
 - **Checkpoint Events**  
   - Sent when player crosses checkpoint radius  
   - Format: `checkpoint cp_id,ts,x,y,z,speed`  
+  - **Checkpoint State Tracking**: Client maintains internal state of the last checkpoint crossed
+  - **Sequential Validation**: Client only announces a checkpoint when reaching the next one in sequence or the finish line
+  - **Duplicate Prevention**: Prevents re-announcing the same checkpoint multiple times
   - Verified locally before sending  
 
 - **Presence / Heartbeat**  
@@ -310,7 +313,9 @@ race/{raceId}/state          # retained: race metadata (track, checkpoints, T0, 
 ### Anticheat/Validation (Lightweight, no stateful backend)
 
 **In client (prevention)**:
-- Only emit checkpoint if entering radius r of checkpoint in order
+- **Checkpoint Sequence Validation**: Only emit checkpoint if entering radius r of the next checkpoint in sequence
+- **State Tracking**: Maintain internal counter of last checkpoint crossed to prevent duplicates
+- **Sequential Enforcement**: Reject checkpoint events that don't follow the expected order (1→2→3→...→finish)
 - Calculate speed and discard jumps > threshold (teleports)
 - Basic payload signature (HMAC with ephemeral raceKey distributed by organizer on join)
 
